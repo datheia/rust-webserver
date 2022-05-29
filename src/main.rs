@@ -18,14 +18,15 @@ fn handle_connection(mut stream: TcpStream) {
 
 
     let mut files: HashMap<&str, &str> = HashMap::new();
-    files.insert("/index.html", "html/index.html");
+    files.insert("/index.html", "index.html");
+	files.insert("/a.html", "a.html");
     
     let request: std::borrow::Cow<str> = String::from_utf8_lossy(&buffer[..]);
     
     let mut file_name: &str = request.split_whitespace().nth(1).unwrap();
 
 	if !files.contains_key(file_name) {
-		file_name = "html/index.html";
+		file_name = "/index.html";
 	}
 	if file_name.starts_with('/') {
 		file_name = &file_name[1..];
